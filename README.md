@@ -99,23 +99,6 @@ The relational database would consist of a few core tables to support the LMS:
   - status (String)
   - created_at (DateTime)
 
-### 4. Implementation Phasing (Next Steps)
-
-If I were to continue developing this project into a full-stack application, I would follow these phases:
-
-Phase 1: Database Setup
-- Provision a PostgreSQL database (e.g., Supabase or Neon).
-- Initialize Prisma and create the schema models.
-- Seed the database with the mock data currently hardcoded in the frontend.
-
-Phase 2: API Development
-- Create GET endpoints to fetch courses, ebooks, and history for the logged-in user.
-- Create POST endpoints for user registration and login.
-
-Phase 3: Frontend Integration
-- Replace the hardcoded initial data arrays with standard fetch calls to the new API routes.
-- Implement NextAuth.js to protect the /dashboard routes and manage the user session.
-
 ## Summary
 
 This project demonstrates a clean, component-driven approach to frontend development. By leveraging a strict design system (Tailwind + Shadcn) and ensuring responsive design, the dashboard provides a premium user experience while maintaining a scalable codebase.
