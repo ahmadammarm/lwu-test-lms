@@ -1,65 +1,92 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import Link from "next/link";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { BookOpen, Trophy, Users } from "lucide-react";
+
+export default function LoginPage() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="h-screen overflow-hidden flex w-full bg-white">
+      {/* Left Panel - Brand (Hidden on mobile) */}
+      <div className="hidden lg:flex w-3/5 bg-[#103B6B] text-white p-12 flex-col justify-between">
+        <div>
+          <div className="flex items-center gap-2 text-2xl font-bold tracking-tight mb-16">
+            <div className="bg-white text-[#103B6B] p-2 rounded-sm leading-none">LWU</div>
+            Learning With Us
+          </div>
+          <h1 className="text-5xl font-bold tracking-tight leading-tight max-w-lg mb-6">
+            Learn at your own pace. Master your craft.
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-[#103B6B] text-lg text-white/80 max-w-md">
+            The premium platform for modern students to track courses, read ebooks, and manage their learning journey.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        
+        <div className="space-y-6">
+          <div className="flex items-center gap-4">
+            <div className="bg-white/10 p-3 rounded-md"><BookOpen className="w-6 h-6" /></div>
+            <div>
+              <h3 className="font-semibold text-lg">200+ Premium Courses</h3>
+              <p className="text-white/70 text-sm">Taught by industry experts</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-4">
+            <div className="bg-white/10 p-3 rounded-md"><Trophy className="w-6 h-6" /></div>
+            <div>
+              <h3 className="font-semibold text-lg">Earn Certificates</h3>
+              <p className="text-white/70 text-sm">Validate your skills upon completion</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-4">
+            <div className="bg-white/10 p-3 rounded-md"><Users className="w-6 h-6" /></div>
+            <div>
+              <h3 className="font-semibold text-lg">Community Driven</h3>
+              <p className="text-white/70 text-sm">Join thousands of other learners</p>
+            </div>
+          </div>
         </div>
-      </main>
+      </div>
+
+      {/* Right Panel - Login Form */}
+      <div className="flex-1 flex flex-col justify-center items-center p-8 lg:p-12 h-full overflow-y-auto">
+        <div className="w-full max-w-sm space-y-8">
+          <div className="text-center lg:text-left space-y-2">
+            <div className="lg:hidden mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-md bg-[#103B6B] text-white font-bold text-xl">
+              LWU
+            </div>
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900">Welcome Back</h2>
+            <p className="text-slate-500">Enter your credentials to access your dashboard</p>
+          </div>
+
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="email" className="text-slate-700">Email Address</Label>
+              <Input id="email" type="email" placeholder="student@example.com" className="h-11 px-3 py-2 border-slate-200" />
+            </div>
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <Label htmlFor="password" className="text-slate-700">Password</Label>
+                <Link href="#" className="text-sm font-medium text-[#103B6B] hover:underline">
+                  Forgot password?
+                </Link>
+              </div>
+              <Input id="password" type="password" className="h-11 px-3 py-2 border-slate-200" />
+            </div>
+          </div>
+
+          <Link 
+            href="/dashboard"
+            className="flex items-center justify-center w-full h-11 text-base font-medium rounded-md bg-[#103B6B] hover:bg-[#0a2646] text-white transition-colors"
+          >
+            Sign In to Dashboard
+          </Link>
+
+          <p className="text-center text-sm text-slate-500 mt-6">
+            Don't have an account? <Link href="#" className="font-semibold text-[#103B6B] hover:underline">Sign up</Link>
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

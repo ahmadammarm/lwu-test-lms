@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Learning With Us - LMS Dashboard
+
+This repository contains the frontend implementation for the Learning With Us (LWU) Learning Management System (LMS) dashboard. This project was developed as part of the Web Developer Internship take-home test.
+
+The goal of this project is to build a responsive, aesthetic, and functional dashboard for the "Student" role, allowing users to track their learning progress, browse courses and ebooks, and view their purchase history.
+
+## Tech Stack
+
+The application is built using modern frontend technologies optimized for rapid development and clean maintainability:
+
+- Framework: Next.js (App Router)
+- Language: TypeScript
+- Styling: Tailwind CSS v4
+- UI Components: Shadcn UI (Radix UI primitives)
+- Icons: Lucide React
 
 ## Getting Started
 
-First, run the development server:
+Follow these steps to run the project locally on your machine.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Prerequisites
+- Node.js (v18 or higher recommended)
+- pnpm package manager
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repository or extract the project folder.
+2. Navigate into the project directory:
+   cd lwu-test-lms
+3. Install the dependencies:
+   pnpm install
+4. Start the development server:
+   pnpm run dev
+5. Open your browser and navigate to http://localhost:3000 to view the application.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Application Structure
 
-## Learn More
+The codebase is organized to be DRY (Don't Repeat Yourself) and highly reusable:
 
-To learn more about Next.js, take a look at the following resources:
+- /app: Contains all the Next.js page routes (Login, Dashboard, Courses, Ebooks, History).
+- /app/dashboard/layout.tsx: The main layout wrapper that includes the Sidebar and Header for all dashboard routes.
+- /components/layout: Contains structural layout components like AppSidebar.tsx and Header.tsx.
+- /components/ui: Contains reusable, unstyled UI components provided by Shadcn (Buttons, Cards, Inputs, Tables).
+- /public: Stores static assets like the logo image.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Approach Plan & System Design
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Although this specific assignment only required the frontend implementation, below is a proposed system design and approach plan for building out the full-stack application. The design is kept practical, straightforward, and manageable for a small team or intern project.
 
-## Deploy on Vercel
+### 1. Frontend Approach
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The frontend is designed as a Single Page Application (SPA) utilizing Next.js Server Components where possible for performance, and Client Components where state (like search filtering) is needed.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+State Management: 
+Currently, React's local state (useState) is sufficient for handling search filters and UI toggles. If the app scales to require global state (e.g., user authentication data, global cart), a lightweight library like Zustand would be introduced.
+
+### 2. Proposed Backend Architecture
+
+To keep the stack unified and simple, the backend should be built using Next.js API Routes (Serverless Functions) or a simple Node.js + Express server. 
+
+Tech Stack:
+- Runtime: Node.js
+- API Framework: Next.js Route Handlers (REST API)
+- Database: PostgreSQL (Relational database is best for structured LMS data)
+- ORM: Prisma (Provides excellent TypeScript integration and easy schema management)
+- Authentication: NextAuth.js (For handling JWT sessions and OAuth if needed)
+
+### 3. Database Schema Design
+
+The relational database would consist of a few core tables to support the LMS:
+
+- Users:
+  - id (UUID, Primary Key)
+  - email (String, Unique)
+  - password_hash (String)
+  - role (String: 'student' or 'admin')
+  - created_at (DateTime)
+
+- Courses:
+  - id (UUID, Primary Key)
+  - title (String)
+  - description (Text)
+  - instructor_name (String)
+  - category (String)
+  - total_modules (Integer)
+
+- User_Courses (Many-to-Many tracking progress):
+  - user_id (Foreign Key)
+  - course_id (Foreign Key)
+  - completed_modules (Integer)
+  - progress_percentage (Integer)
+
+- Transactions (Purchase History):
+  - id (String, Primary Key e.g., 'INV-001')
+  - user_id (Foreign Key)
+  - item_name (String)
+  - item_type (String: 'course' or 'ebook')
+  - amount (Float)
+  - status (String)
+  - created_at (DateTime)
+
+### 4. Implementation Phasing (Next Steps)
+
+If I were to continue developing this project into a full-stack application, I would follow these phases:
+
+Phase 1: Database Setup
+- Provision a PostgreSQL database (e.g., Supabase or Neon).
+- Initialize Prisma and create the schema models.
+- Seed the database with the mock data currently hardcoded in the frontend.
+
+Phase 2: API Development
+- Create GET endpoints to fetch courses, ebooks, and history for the logged-in user.
+- Create POST endpoints for user registration and login.
+
+Phase 3: Frontend Integration
+- Replace the hardcoded initial data arrays with standard fetch calls to the new API routes.
+- Implement NextAuth.js to protect the /dashboard routes and manage the user session.
+
+## Summary
+
+This project demonstrates a clean, component-driven approach to frontend development. By leveraging a strict design system (Tailwind + Shadcn) and ensuring responsive design, the dashboard provides a premium user experience while maintaining a scalable codebase.
