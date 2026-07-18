@@ -35,13 +35,14 @@ Follow these steps to run the project locally on your machine.
 
 ## Application Structure
 
-The codebase is organized to be DRY (Don't Repeat Yourself) and highly reusable:
+The codebase is strictly organized following a feature-based Component-Driven Architecture to be extremely DRY (Don't Repeat Yourself) and scalable:
 
-- /app: Contains all the Next.js page routes (Login, Dashboard, Courses, Ebooks, History).
-- /app/dashboard/layout.tsx: The main layout wrapper that includes the Sidebar and Header for all dashboard routes.
-- /components/layout: Contains structural layout components like AppSidebar.tsx and Header.tsx.
-- /components/ui: Contains reusable, unstyled UI components provided by Shadcn (Buttons, Cards, Inputs, Tables).
-- /public: Stores static assets like the logo image.
+- `/app`: Contains all the Next.js page routes. Page files are kept thin, acting only as containers for state management and layout assembly.
+- `/components/shared`: Contains global reusable components used across multiple pages (e.g., `PageHeader.tsx`, `SearchInput.tsx`, `EmptyState.tsx`).
+- `/components/features`: Contains modularized UI components grouped by specific domain/page logic (e.g., `courses`, `ebooks`, `history`).
+- `/components/layout`: Contains structural layout components like `AppSidebar.tsx` and `Header.tsx`.
+- `/components/ui`: Contains reusable, accessible UI primitives provided by Shadcn (Buttons, Cards, Inputs, Tables).
+- `/lib/mock-data.ts`: Centralized store for all application mock data, simulating a backend database.
 
 ## Approach Plan & System Design
 
