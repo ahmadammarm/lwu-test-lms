@@ -56,14 +56,14 @@ Currently, React's local state (useState) is sufficient for handling search filt
 
 ### 2. Proposed Backend Architecture
 
-To keep the stack unified and simple, the backend should be built using Next.js API Routes (Serverless Functions) or a simple Node.js + Express server. 
+To fully leverage the Next.js App Router, the backend logic will be integrated directly into the framework using React Server Components (RSC) and Server Actions. This modern approach eliminates the need for a traditional separate REST API, allowing secure database queries to run directly on the server during rendering and form mutations to run natively without manual API endpoints.
 
 Tech Stack:
-- Runtime: Node.js
-- API Framework: Next.js Route Handlers (REST API)
+- Architecture: Next.js Server-Side Rendering (SSR) and Server Actions
+- Data Fetching: React Server Components (RSC)
 - Database: PostgreSQL (Relational database is best for structured LMS data)
 - ORM: Prisma (Provides excellent TypeScript integration and easy schema management)
-- Authentication: NextAuth.js (For handling JWT sessions and OAuth if needed)
+- Authentication: NextAuth.js v5 (Auth.js) optimized for Server Actions
 
 ### 3. Database Schema Design
 
