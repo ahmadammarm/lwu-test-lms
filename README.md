@@ -44,61 +44,17 @@ The codebase is strictly organized following a feature-based Component-Driven Ar
 - `/components/ui`: Contains reusable, accessible UI primitives provided by Shadcn (Buttons, Cards, Inputs, Tables).
 - `/lib/mock-data.ts`: Centralized store for all application mock data, simulating a backend database.
 
-## Approach Plan & System Design
+## System Design & Architecture
 
-Although this specific assignment only required the frontend implementation, below is a proposed system design and approach plan for building out the full-stack application. The design is kept practical, straightforward, and manageable for a small team or intern project.
+A complete End-to-End (E2E) System Design plan has been documented to demonstrate the proposed architecture for expanding this project into a full-stack production application.
 
-### 1. Frontend Approach
+The design covers:
+1. **Application Layer**: Unified frontend and backend using Next.js SSR and Server Actions.
+2. **Database Layer**: PostgreSQL optimization, Indexing, Eager Loading, and Singleton Connection Pooling.
+3. **Authentication**: Stateless JWT via NextAuth.js.
+4. **Caching Layer**: Hybrid caching strategy using Next.js Data Cache and React Query.
 
-The frontend is designed as a Single Page Application (SPA) utilizing Next.js Server Components where possible for performance, and Client Components where state (like search filtering) is needed.
-
-State Management: 
-Currently, React's local state (useState) is sufficient for handling search filters and UI toggles. If the app scales to require global state (e.g., user authentication data, global cart), a lightweight library like Zustand would be introduced.
-
-### 2. Proposed Backend Architecture
-
-To fully leverage the Next.js App Router, the backend logic will be integrated directly into the framework using React Server Components (RSC) and Server Actions. This modern approach eliminates the need for a traditional separate REST API, allowing secure database queries to run directly on the server during rendering and form mutations to run natively without manual API endpoints.
-
-Tech Stack:
-- Architecture: Next.js Server-Side Rendering (SSR) and Server Actions
-- Data Fetching: React Server Components (RSC)
-- Database: PostgreSQL (Relational database is best for structured LMS data)
-- ORM: Prisma (Provides excellent TypeScript integration and easy schema management)
-- Authentication: NextAuth.js v5 (Auth.js) optimized for Server Actions
-
-### 3. Database Schema Design
-
-The relational database would consist of a few core tables to support the LMS:
-
-- Users:
-  - id (UUID, Primary Key)
-  - email (String, Unique)
-  - password_hash (String)
-  - role (String: 'student' or 'admin')
-  - created_at (DateTime)
-
-- Courses:
-  - id (UUID, Primary Key)
-  - title (String)
-  - description (Text)
-  - instructor_name (String)
-  - category (String)
-  - total_modules (Integer)
-
-- User_Courses (Many-to-Many tracking progress):
-  - user_id (Foreign Key)
-  - course_id (Foreign Key)
-  - completed_modules (Integer)
-  - progress_percentage (Integer)
-
-- Transactions (Purchase History):
-  - id (String, Primary Key e.g., 'INV-001')
-  - user_id (Foreign Key)
-  - item_name (String)
-  - item_type (String: 'course' or 'ebook')
-  - amount (Float)
-  - status (String)
-  - created_at (DateTime)
+👉 **[Read the Full System Design Document here](./docs/system-design-plan.md)**
 
 ## Summary
 
